@@ -1,15 +1,10 @@
+from sqlalchemy import Column, Integer, String, Date
+from dbconnect import Base
 
-from typing import Optional
-from pydantic import BaseModel
+class PhieuKiemKe(Base):
+    __tablename__ = 'phieukk'
 
-class PhieuKiemKeBase(BaseModel):
-    idKho: Optional[int] = None
-    idNhanVien: Optional[int] = None
-    ngaykiemke: Optional[str] = None
-    tongslton: Optional[int] = None
-
-class PhieuKiemKe(PhieuKiemKeBase):
-    id: int
-
-    class Config:
-        orm_mode = True
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    idKho = Column(Integer, nullable=True)
+    idNVien = Column(Integer, nullable=True)
+    ngaykiemke = Column(Date, nullable=True)

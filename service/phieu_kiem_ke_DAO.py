@@ -1,13 +1,33 @@
+from sqlalchemy.orm import Session
+from model.phieu_kiem_ke import PhieuKiemKe
+from schemas.phieu_kiem_ke_sm import PhieuKiemKeCreate, PhieuKiemKeUpdate
 
-from database import create_connection
-from model.cart import Cart
-from service.cart_product_item_DAO import list_cart_product_item_by_cart_id
+def get_phieukiemkes(db: Session, skip: int = 0, limit: int = 10):
+    return db.query(PhieuKiemKe).offset(skip).limit(limit).all()
 
-# def all_cart():
-#     conn = create_connection()
-#     with conn.cursor() as cursor:
-#         sql = "SELECT * FROM cart"
-#         cursor.execute(sql)
-#         results = cursor.fetchall()
-#         list_cart = []
-#         return list_cart
+def create_phieukiemke(db: Session, phieukiemke: PhieuKiemKeCreate):
+    db_phieukiemke = PhieuKiemKe(**phieukiemke.dict())
+    db.add(db_phieukiemke)
+    db.commit()
+    db.refresh(db_phieukiemke)
+    return db_phieukiemke
+
+def update_phieukiemke(db: Session, phieukiemke_id: int, phieukiemke: PhieuKiemKeUpdate):
+    db_phieukiemke = db.query(PhieuKiemKe).filter(PhieuKiemKe.id == phieukiemke_id).first()
+    if db_phieukiemke is None:
+        return None
+    for key, value in phieukiemke.dict(exclude_unset=True).items():
+        setattr(db_phieukiemke, key, value)
+    db.commit()
+    db.refresh(db_phieukiemke)
+    return db_phieukiemke
+
+def delete_phieukiemke(db: Session, phieukiemke_id: int):
+    db_phieukiemke = db.query(PhieuKiemKe).filter(PhieuKiemKe.id == phieukiemke_id).first()
+    if db_phieukiemke:
+        db.delete(db_phieukiemke)
+        db.commit()
+    return db_phieukiemke
+
+def get_phieukiemke_by_id(db: Session, phieukiemke_id: int):
+    return db.query(PhieuKiemKe).filter(PhieuKiemKe.id == phieukiemke_id).first()

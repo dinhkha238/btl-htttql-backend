@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from dbconnect import Base,engine
-# from router import user_Rest
+from router import phieu_kiem_ke_rest
 from router import dai_ly_rest
 from router import pxhh_rest
 from router import phieu_xuat_rest
@@ -12,6 +12,9 @@ from router import nha_cung_cap_rest
 from router import pnhh_rest
 from router import hang_hoa_rest
 from router import phieu_nhap_rest
+from router import phieu_bao_cao_rest
+from router import pkkhh_rest
+from router import bchh_rest
 
 # Tạo bảng trong cơ sở dữ liệu
 Base.metadata.create_all(bind=engine)
@@ -19,7 +22,10 @@ Base.metadata.create_all(bind=engine)
 # Khởi tạo ứng dụng FastAPI
 app = FastAPI()
 
-# app.include_router(user_Rest.router)
+app.include_router(pkkhh_rest.router)
+app.include_router(bchh_rest.router)
+app.include_router(phieu_bao_cao_rest.router)
+app.include_router(phieu_kiem_ke_rest.router)
 app.include_router(dai_ly_rest.router)
 app.include_router(pxhh_rest.router)
 app.include_router(phieu_xuat_rest.router)
