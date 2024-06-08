@@ -5,5 +5,5 @@ def create_connection():
         host="localhost",
         user="root",
         password="anhkha123",
-        database="tmdt"
+        database="htql"
     )
