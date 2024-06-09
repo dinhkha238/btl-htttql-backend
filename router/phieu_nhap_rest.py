@@ -20,7 +20,7 @@ def read_phieunhaps(db: Session = Depends(get_db)):
     phieunhaps = get_phieunhaps(db)
     return phieunhaps
 
-@router.post("/phieunhaps/", response_model=PhieuNhap,tags=["Phiếu nhập"])
+@router.post("/phieunhaps/", response_model=PhieuNhap, tags=["Phiếu nhập"])
 def create_phieunhap_endpoint(phieunhap: PhieuNhapCreate, db: Session = Depends(get_db)):
     return create_phieunhap(db, phieunhap)
 
@@ -37,3 +37,4 @@ def delete_phieunhap_endpoint(phieunhap_id: int, db: Session = Depends(get_db)):
     if db_phieunhap is None:
         raise HTTPException(status_code=404, detail="PhieuNhap not found")
     return db_phieunhap
+

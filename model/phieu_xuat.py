@@ -7,7 +7,7 @@ class PhieuXuat(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     idDaily = Column(Integer, nullable=True)
     idKho = Column(Integer, nullable=True)
-    idNVien = Column(Integer, nullable=True)
+    idNvien = Column(Integer, nullable=True)
     tongsl = Column(Integer, nullable=True)
     tongtien = Column(Integer, nullable=True)
     ngayxuat = Column(Date, nullable=True)

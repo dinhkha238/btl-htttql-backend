@@ -37,7 +37,7 @@ def delete_phieunhaphanghoa(db: Session, phieunhaphanghoa_id: int):
 def get_pnhh_by_idPhieuNhap(db: Session, phieunhap_id: int):
     phieunhap = get_phieunhap_by_id(db, phieunhap_id)
     result = vars(phieunhap)
-    nhanvien = get_nhanvien_by_id(db, phieunhap.idNVien)
+    nhanvien = get_nhanvien_by_id(db, phieunhap.idNvien)
     kho = get_kho_by_id(db, phieunhap.idKho)
     nhacungcap = get_nhacungcap_by_id(db, phieunhap.idNcc)
     result["nhanvien"] = nhanvien
@@ -47,6 +47,9 @@ def get_pnhh_by_idPhieuNhap(db: Session, phieunhap_id: int):
     pnhh = db.query(PhieuNhapHangHoa).filter(PhieuNhapHangHoa.idPn == phieunhap_id).all()
     for item in pnhh:
         hanghoa = get_hanghoa_by_id(db, item.idHanghoa)
-        dsHangHoa.append(hanghoa)
+        new_hanghoa = vars(hanghoa)
+        new_hanghoa["soluong"] = item.soluong
+        new_hanghoa["dongia"] = item.dongia
+        dsHangHoa.append(new_hanghoa)
     result["dsHangHoa"] = dsHangHoa
     return result

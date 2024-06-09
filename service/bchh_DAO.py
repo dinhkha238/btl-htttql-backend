@@ -44,6 +44,9 @@ def get_bchh_by_idPhieubaocao(db: Session, phieubaocao_id: int):
     bchh = db.query(PhieuBaoCaoHangHoa).filter(PhieuBaoCaoHangHoa.idPbc == phieubaocao_id).all()
     for item in bchh:
         hanghoa = get_hanghoa_by_id(db, item.idHanghoa)
-        dsHangHoa.append(hanghoa)
+        new_hanghoa = vars(hanghoa)
+        new_hanghoa["slban"] = item.slban
+        new_hanghoa["tongtien"] = item.tongtien
+        dsHangHoa.append(new_hanghoa)
     result["dsHangHoa"] = dsHangHoa
     return result

@@ -5,7 +5,7 @@ from typing import Optional
 class PhieuXuatBase(BaseModel):
     idDaily: Optional[int] = None
     idKho: Optional[int] = None
-    idNVien: Optional[int] = None
+    idNvien: Optional[int] = None
     tongsl: Optional[int] = None
     tongtien: Optional[int] = None
     ngayxuat: Optional[date] = None

@@ -7,8 +7,10 @@ class PhieuNhapHangHoaBase(BaseModel):
     soluong: int
     dongia: int
 
-class PhieuNhapHangHoaCreate(PhieuNhapHangHoaBase):
-    pass
+class PhieuNhapHangHoaCreate(BaseModel):
+    idHanghoa: int
+    soluong: int
+    dongia: int
 
 class PhieuNhapHangHoaUpdate(PhieuNhapHangHoaBase):
     pass

@@ -8,7 +8,7 @@ class PhieuNhap(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     idNcc = Column(Integer, nullable=True)
     idKho = Column(Integer, nullable=True)
-    idNVien = Column(Integer, nullable=True)
+    idNvien = Column(Integer, nullable=True)
     tongsl = Column(Integer, nullable=True)
     ngaynhap = Column(Date, nullable=True)  # Độ dài cụ thể cho VARCHAR
     tongtien = Column(Integer, nullable=True)

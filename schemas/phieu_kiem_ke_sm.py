@@ -4,7 +4,7 @@ from typing import Optional
 
 class PhieuKiemKeBase(BaseModel):
     idKho: Optional[int] = None
-    idNVien: Optional[int] = None
+    idNvien: Optional[int] = None
     ngaykiemke: Optional[date] = None
 
 class PhieuKiemKeCreate(PhieuKiemKeBase):
