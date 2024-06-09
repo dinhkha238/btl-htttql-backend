@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from model.nhan_vien import NhanVien
 from schemas.nhan_vien_sm import NhanVienCreate, NhanVienUpdate
 
-def get_nhanviens(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(NhanVien).offset(skip).limit(limit).all()
+def get_nhanviens(db: Session):
+    return db.query(NhanVien).all()
 
 def create_nhanvien(db: Session, nhanvien: NhanVienCreate):
     db_nhanvien = NhanVien(**nhanvien.dict())

@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from model.phieu_bao_cao import PhieuBaoCao
 from schemas.phieu_bao_cao_sm import PhieuBaoCaoCreate, PhieuBaoCaoUpdate
 
-def get_phieubaocaos(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(PhieuBaoCao).offset(skip).limit(limit).all()
+def get_phieubaocaos(db: Session):
+    return db.query(PhieuBaoCao).all()
 
 def create_phieubaocao(db: Session, phieubaocao: PhieuBaoCaoCreate):
     db_phieubaocao = PhieuBaoCao(**phieubaocao.dict())

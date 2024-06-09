@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from model.phieu_xuat import PhieuXuat
 from schemas.phieu_xuat_sm import PhieuXuatCreate, PhieuXuatUpdate
 
-def get_phieuxuats(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(PhieuXuat).offset(skip).limit(limit).all()
+def get_phieuxuats(db: Session):
+    return db.query(PhieuXuat).all()
 
 def create_phieuxuat(db: Session, phieuxuat: PhieuXuatCreate):
     db_phieuxuat = PhieuXuat(**phieuxuat.dict())

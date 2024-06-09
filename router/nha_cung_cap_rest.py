@@ -16,8 +16,8 @@ def get_db():
         db.close()
 
 @router.get("/nhacungcaps/", response_model=List[NhaCungCap], tags=["Nhà cung cấp"])
-def read_nhacungcaps(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    nhacungcaps = get_nhacungcaps(db, skip=skip, limit=limit)
+def read_nhacungcaps( db: Session = Depends(get_db)):
+    nhacungcaps = get_nhacungcaps(db)
     return nhacungcaps
 
 @router.post("/nhacungcaps/", response_model=NhaCungCap, tags=["Nhà cung cấp"])

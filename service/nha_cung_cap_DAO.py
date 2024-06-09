@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from model.nha_cung_cap import NhaCungCap
 from schemas.nha_cung_cap_sm import NhaCungCapCreate, NhaCungCapUpdate
 
-def get_nhacungcaps(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(NhaCungCap).offset(skip).limit(limit).all()
+def get_nhacungcaps(db: Session):
+    return db.query(NhaCungCap).all()
 
 def create_nhacungcap(db: Session, nhacungcap: NhaCungCapCreate):
     db_nhacungcap = NhaCungCap(**nhacungcap.dict())

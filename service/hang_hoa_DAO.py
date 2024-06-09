@@ -1,9 +1,10 @@
 from model.hang_hoa import HangHoa
+from model.hhncc import HangHoaNhaCungCap
 from schemas.hang_hoa_sm import HangHoaCreate, HangHoaUpdate
 from sqlalchemy.orm import Session
 
-def get_hanghoas(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(HangHoa).offset(skip).limit(limit).all()
+def get_hanghoas(db: Session):
+    return db.query(HangHoa).all()
 
 def create_hanghoa(db: Session, hanghoa: HangHoaCreate):
     db_hanghoa = HangHoa(**hanghoa.dict())
@@ -31,3 +32,11 @@ def delete_hanghoa(db: Session, hanghoa_id: int):
 
 def get_hanghoa_by_id(db: Session, hanghoa_id: int):
     return db.query(HangHoa).filter(HangHoa.id == hanghoa_id).first()
+
+def get_hanghoa_by_idNcc(db: Session, idNcc: int):
+    db_hhncc = db.query(HangHoaNhaCungCap).filter(HangHoaNhaCungCap.idNcc == idNcc).all()
+    db_hh = []
+    for item in db_hhncc:
+        hanghoa = get_hanghoa_by_id(db, item.idHanghoa)
+        db_hh.append(hanghoa)
+    return db_hh

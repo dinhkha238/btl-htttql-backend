@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from model.dai_ly import DaiLy
 from schemas.dai_ly_sm import DaiLyCreate, DaiLyUpdate
 
-def get_dailys(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(DaiLy).offset(skip).limit(limit).all()
+def get_dailys(db: Session):
+    return db.query(DaiLy).all()
 
 def create_daily(db: Session, daily: DaiLyCreate):
     db_daily = DaiLy(**daily.dict())

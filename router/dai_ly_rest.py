@@ -16,8 +16,8 @@ def get_db():
         db.close()
 
 @router.get("/dailys/", response_model=List[DaiLy], tags=["Đại lý"])
-def read_dailys(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    dailys = get_dailys(db, skip=skip, limit=limit)
+def read_dailys( db: Session = Depends(get_db)):
+    dailys = get_dailys(db)
     return dailys
 
 @router.post("/dailys/", response_model=DaiLy, tags=["Đại lý"])

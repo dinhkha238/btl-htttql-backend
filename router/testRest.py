@@ -14,6 +14,6 @@ def get_db():
         db.close()
 
 @router.get("/items/")
-def read_items(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    items = get_items(db, skip=skip, limit=limit)
+def read_items( db: Session = Depends(get_db)):
+    items = get_items(db)
     return items

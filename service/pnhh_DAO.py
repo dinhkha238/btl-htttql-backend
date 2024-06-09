@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 from model.pnhh import PhieuNhapHangHoa
 from schemas.pnhh_sm import PhieuNhapHangHoaCreate, PhieuNhapHangHoaUpdate
 
-def get_phieunhaphanghoas(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(PhieuNhapHangHoa).offset(skip).limit(limit).all()
+def get_phieunhaphanghoas(db: Session):
+    return db.query(PhieuNhapHangHoa).all()
 
 def create_phieunhaphanghoa(db: Session, phieunhaphanghoa: PhieuNhapHangHoaCreate):
     db_phieunhaphanghoa = PhieuNhapHangHoa(**phieunhaphanghoa.dict())

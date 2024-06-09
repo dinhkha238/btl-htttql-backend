@@ -16,8 +16,8 @@ def get_db():
         db.close()
 
 @router.get("/phieubaocaos/", response_model=List[PhieuBaoCao], tags=["Phiếu báo cáo"])
-def read_phieubaocaos(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    phieubaocaos = get_phieubaocaos(db, skip=skip, limit=limit)
+def read_phieubaocaos( db: Session = Depends(get_db)):
+    phieubaocaos = get_phieubaocaos(db)
     return phieubaocaos
 
 @router.post("/phieubaocaos/", response_model=PhieuBaoCao, tags=["Phiếu báo cáo"])

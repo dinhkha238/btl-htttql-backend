@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from model.kho import Kho
 from schemas.kho_sm import KhoCreate, KhoUpdate
 
-def get_khos(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(Kho).offset(skip).limit(limit).all()
+def get_khos(db: Session):
+    return db.query(Kho).all()
 
 def create_kho(db: Session, kho: KhoCreate):
     db_kho = Kho(**kho.dict())

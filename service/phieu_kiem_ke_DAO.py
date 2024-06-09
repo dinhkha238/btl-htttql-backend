@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from model.phieu_kiem_ke import PhieuKiemKe
 from schemas.phieu_kiem_ke_sm import PhieuKiemKeCreate, PhieuKiemKeUpdate
 
-def get_phieukiemkes(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(PhieuKiemKe).offset(skip).limit(limit).all()
+def get_phieukiemkes(db: Session):
+    return db.query(PhieuKiemKe).all()
 
 def create_phieukiemke(db: Session, phieukiemke: PhieuKiemKeCreate):
     db_phieukiemke = PhieuKiemKe(**phieukiemke.dict())
