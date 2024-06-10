@@ -1,5 +1,6 @@
 from model.hang_hoa import HangHoa
 from model.hhncc import HangHoaNhaCungCap
+from model.khohh import KhoHangHoa
 from schemas.hang_hoa_sm import HangHoaCreate, HangHoaUpdate
 from sqlalchemy.orm import Session
 
@@ -39,4 +40,14 @@ def get_hanghoa_by_idNcc(db: Session, idNcc: int):
     for item in db_hhncc:
         hanghoa = get_hanghoa_by_id(db, item.idHanghoa)
         db_hh.append(hanghoa)
+    return db_hh
+
+def get_hanghoa_by_idKho(db: Session, idKho: int):
+    db_kho_hh = db.query(KhoHangHoa).filter(KhoHangHoa.idKho == idKho).all()
+    db_hh = []
+    for item in db_kho_hh:
+        hanghoa = get_hanghoa_by_id(db, item.idHanghoa)
+        new_hanghoa = vars(hanghoa)
+        new_hanghoa['soluongton'] = item.soluong
+        db_hh.append(new_hanghoa)
     return db_hh
