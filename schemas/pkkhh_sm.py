@@ -6,8 +6,9 @@ class PhieuKiemKeHangHoaBase(BaseModel):
     idHanghoa: Optional[int] = None
     soluong: Optional[int] = None
 
-class PhieuKiemKeHangHoaCreate(PhieuKiemKeHangHoaBase):
-    pass
+class PhieuKiemKeHangHoaCreate(BaseModel):
+    idHanghoa: int
+    soluong: int
 
 class PhieuKiemKeHangHoaUpdate(PhieuKiemKeHangHoaBase):
     pass

@@ -1,14 +1,19 @@
 from datetime import date
 from pydantic import BaseModel
-from typing import Optional
+from typing import List, Optional
+
+from schemas.pkkhh_sm import PhieuKiemKeHangHoaCreate
 
 class PhieuKiemKeBase(BaseModel):
     idKho: Optional[int] = None
     idNvien: Optional[int] = None
     ngaykiemke: Optional[date] = None
 
-class PhieuKiemKeCreate(PhieuKiemKeBase):
-    pass
+class PhieuKiemKeCreate(BaseModel):
+    idKho: int
+    idNvien: int
+    ngaykiemke: str
+    hanghoas: List[PhieuKiemKeHangHoaCreate]
 
 class PhieuKiemKeUpdate(PhieuKiemKeBase):
     pass

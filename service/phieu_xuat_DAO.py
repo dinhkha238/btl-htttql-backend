@@ -7,13 +7,6 @@ from schemas.phieu_xuat_sm import PhieuXuatCreate, PhieuXuatUpdate
 def get_phieuxuats(db: Session):
     return db.query(PhieuXuat).all()
 
-def create_phieuxuat(db: Session, phieuxuat: PhieuXuatCreate):
-    db_phieuxuat = PhieuXuat(**phieuxuat.dict())
-    db.add(db_phieuxuat)
-    db.commit()
-    db.refresh(db_phieuxuat)
-    return db_phieuxuat
-
 def update_phieuxuat(db: Session, phieuxuat_id: int, phieuxuat: PhieuXuatUpdate):
     db_phieuxuat = db.query(PhieuXuat).filter(PhieuXuat.id == phieuxuat_id).first()
     if db_phieuxuat is None:

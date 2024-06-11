@@ -1,3 +1,4 @@
+from model.pkkhh import PhieuKiemKeHangHoa
 from sqlalchemy.orm import Session
 from model.phieu_kiem_ke import PhieuKiemKe
 from schemas.phieu_kiem_ke_sm import PhieuKiemKeCreate, PhieuKiemKeUpdate
@@ -6,10 +7,25 @@ def get_phieukiemkes(db: Session):
     return db.query(PhieuKiemKe).all()
 
 def create_phieukiemke(db: Session, phieukiemke: PhieuKiemKeCreate):
-    db_phieukiemke = PhieuKiemKe(**phieukiemke.dict())
+    db_phieukiemke = PhieuKiemKe(
+        idKho=phieukiemke.idKho,
+        idNvien=phieukiemke.idNvien,
+        ngaykiemke=phieukiemke.ngaykiemke
+    )
     db.add(db_phieukiemke)
     db.commit()
     db.refresh(db_phieukiemke)
+
+    for hanghoa in phieukiemke.hanghoas:
+        db_pkkhh = PhieuKiemKeHangHoa(
+            idPkk=db_phieukiemke.id,
+            idHanghoa=hanghoa.idHanghoa,
+            soluong=hanghoa.soluong
+        )
+        db.add(db_pkkhh)
+    db.commit()
+    db.refresh(db_phieukiemke)
+
     return db_phieukiemke
 
 def update_phieukiemke(db: Session, phieukiemke_id: int, phieukiemke: PhieuKiemKeUpdate):
