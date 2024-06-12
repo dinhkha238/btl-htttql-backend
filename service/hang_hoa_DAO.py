@@ -1,6 +1,8 @@
 from model.hang_hoa import HangHoa
 from model.hhncc import HangHoaNhaCungCap
 from model.khohh import KhoHangHoa
+from model.phieu_xuat import PhieuXuat
+from model.pxhh import PhieuXuatHangHoa
 from schemas.hang_hoa_sm import HangHoaCreate, HangHoaUpdate
 from sqlalchemy.orm import Session
 
@@ -51,3 +53,25 @@ def get_hanghoa_by_idKho(db: Session, idKho: int):
         new_hanghoa['soluongton'] = item.soluong
         db_hh.append(new_hanghoa)
     return db_hh
+
+def get_hanghoa_for_pbchh(db: Session, idKho: int,year_month:str):
+    db_phieuxuat = db.query(PhieuXuat).filter(PhieuXuat.idKho == idKho,PhieuXuat.ngayxuat.startswith(year_month)).all()
+    new_obj = []
+    for phieuxuat in db_phieuxuat:
+        phieuxuat_hanghoa = db.query(PhieuXuatHangHoa).filter(PhieuXuatHangHoa.idPx == phieuxuat.id).all()
+        for item in phieuxuat_hanghoa:
+            doanhthu = item.soluong * item.dongia
+            if item.idHanghoa not in [hanghoa['id'] for hanghoa in new_obj]:
+                hanghoa = get_hanghoa_by_id(db, item.idHanghoa)
+                new_hanghoa = vars(hanghoa)
+                new_hanghoa['soluongxuat'] = item.soluong
+                new_hanghoa['doanhthu'] = doanhthu
+                new_hanghoa['ngayxuat'] = phieuxuat.ngayxuat
+                new_obj.append(new_hanghoa)
+            else:
+                for hanghoa in new_obj:
+                    if hanghoa['id'] == item.idHanghoa:
+                        hanghoa['soluongxuat'] += item.soluong
+                        hanghoa['doanhthu'] += doanhthu
+    return new_obj
+

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-from service.hang_hoa_DAO import get_hanghoa_by_idKho, get_hanghoa_by_idNcc, get_hanghoas, create_hanghoa, update_hanghoa, delete_hanghoa
+from service.hang_hoa_DAO import get_hanghoa_by_idKho, get_hanghoa_by_idNcc, get_hanghoa_for_pbchh, get_hanghoas, create_hanghoa, update_hanghoa, delete_hanghoa
 from schemas.hang_hoa_sm import HangHoa, HangHoaCreate, HangHoaUpdate
 from dbconnect import SessionLocal
 
@@ -47,3 +47,8 @@ def get_hanghoa_by_idNcc_endpoint(idNcc: int, db: Session = Depends(get_db)):
 def get_hanghoa_by_idKho_endpoint(idKho: int, db: Session = Depends(get_db)):
     db_kho_hh = get_hanghoa_by_idKho(db, idKho)
     return db_kho_hh
+
+@router.get("/hanghoas-for-pbchh/{idKho}/{year_month}",tags=["Hàng hóa"])
+def get_hanghoa_for_pbchh_endpoint(idKho: int,year_month:str, db: Session = Depends(get_db)):
+    db_hh = get_hanghoa_for_pbchh(db, idKho,year_month)
+    return db_hh

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, Date
 from sqlalchemy.orm import relationship
 from dbconnect import Base
 
@@ -10,3 +10,4 @@ class PhieuBaoCaoHangHoa(Base):
     idHanghoa = Column(Integer, ForeignKey('hanghoa.id'), nullable=False)
     slban = Column(Integer, nullable=False)
     tongtien = Column(Integer, nullable=False)
+    ngayxuat = Column(Date, nullable=False)

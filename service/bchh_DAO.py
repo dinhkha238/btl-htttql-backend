@@ -47,6 +47,7 @@ def get_bchh_by_idPhieubaocao(db: Session, phieubaocao_id: int):
         new_hanghoa = vars(hanghoa)
         new_hanghoa["slban"] = item.slban
         new_hanghoa["tongtien"] = item.tongtien
+        new_hanghoa["ngayxuat"] = item.ngayxuat
         dsHangHoa.append(new_hanghoa)
     result["dsHangHoa"] = dsHangHoa
     return result

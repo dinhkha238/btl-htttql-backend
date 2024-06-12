@@ -20,7 +20,7 @@ def read_phieubaocaos( db: Session = Depends(get_db)):
     phieubaocaos = get_phieubaocaos(db)
     return phieubaocaos
 
-@router.post("/phieubaocaos/", response_model=PhieuBaoCao, tags=["Phiếu báo cáo"])
+@router.post("/phieubaocaos/", tags=["Phiếu báo cáo"])
 def create_phieubaocao_endpoint(phieubaocao: PhieuBaoCaoCreate, db: Session = Depends(get_db)):
     return create_phieubaocao(db, phieubaocao)
 
