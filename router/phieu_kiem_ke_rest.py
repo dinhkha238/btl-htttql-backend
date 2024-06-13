@@ -15,7 +15,7 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/phieukiemkes/", response_model=List[PhieuKiemKe], tags=["Phiếu kiểm kê"])
+@router.get("/phieukiemkes/", tags=["Phiếu kiểm kê"])
 def read_phieukiemkes( db: Session = Depends(get_db)):
     phieukiemkes = get_phieukiemkes(db)
     return phieukiemkes

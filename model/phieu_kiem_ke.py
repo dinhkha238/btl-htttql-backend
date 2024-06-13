@@ -8,3 +8,4 @@ class PhieuKiemKe(Base):
     idKho = Column(Integer, nullable=True)
     idNvien = Column(Integer, nullable=True)
     ngaykiemke = Column(Date, nullable=True)
+    tongslton = Column(Integer, nullable=True)

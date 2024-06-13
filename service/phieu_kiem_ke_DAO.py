@@ -10,7 +10,8 @@ def create_phieukiemke(db: Session, phieukiemke: PhieuKiemKeCreate):
     db_phieukiemke = PhieuKiemKe(
         idKho=phieukiemke.idKho,
         idNvien=phieukiemke.idNvien,
-        ngaykiemke=phieukiemke.ngaykiemke
+        ngaykiemke=phieukiemke.ngaykiemke,
+        tongslton = sum(hanghoa.soluong for hanghoa in phieukiemke.hanghoas)
     )
     db.add(db_phieukiemke)
     db.commit()
