@@ -8,13 +8,19 @@ def get_phieunhaps(db: Session):
     return db.query(PhieuNhap).all()
 
 def update_phieunhap(db: Session, phieunhap_id: int, phieunhap: PhieuNhapUpdate):
-    db_phieunhap = db.query(PhieuNhap).filter(PhieuNhap.id == phieunhap_id).first()
-    if db_phieunhap is None:
-        return None
-    for key, value in phieunhap.dict(exclude_unset=True).items():
-        setattr(db_phieunhap, key, value)
-    db.commit()
-    db.refresh(db_phieunhap)
+    db_phieunhap = db.query(PhieuNhapHangHoa).filter(PhieuNhapHangHoa.idPn == phieunhap_id, PhieuNhapHangHoa.idHanghoa == phieunhap.idHanghoa).first()
+    if db_phieunhap:
+        db_phieunhap.soluong = phieunhap.soluong
+        db_phieunhap.dongia = phieunhap.dongia
+        db.commit()
+        db.refresh(db_phieunhap)
+        # update lại tongsl và tongtien của phiếu nhập
+        db_pn = db.query(PhieuNhap).filter(PhieuNhap.id == phieunhap_id).first()
+        db_pn.tongsl = sum(item.soluong for item in db.query(PhieuNhapHangHoa).filter(PhieuNhapHangHoa.idPn == phieunhap_id).all())
+        db_pn.tongtien = sum(item.soluong * item.dongia for item in db.query(PhieuNhapHangHoa).filter(PhieuNhapHangHoa.idPn == phieunhap_id).all())
+        db.commit()
+        db.refresh(db_pn)
+
     return db_phieunhap
 
 def delete_phieunhap(db: Session, phieunhap_id: int):

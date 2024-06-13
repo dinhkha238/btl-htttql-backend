@@ -19,8 +19,11 @@ class PhieuXuatCreate(BaseModel):
     ngayxuat: str
     hanghoas: List[PhieuNhapHangHoaCreate]
 
-class PhieuXuatUpdate(PhieuXuatBase):
-    pass
+class PhieuXuatUpdate(BaseModel):
+    idPx: int
+    idHanghoa: Optional[int] = None
+    soluong: Optional[int] = None
+    dongia: Optional[int] = None
 
 class PhieuXuatInDBBase(PhieuXuatBase):
     id: int

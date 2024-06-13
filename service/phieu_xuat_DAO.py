@@ -8,13 +8,18 @@ def get_phieuxuats(db: Session):
     return db.query(PhieuXuat).all()
 
 def update_phieuxuat(db: Session, phieuxuat_id: int, phieuxuat: PhieuXuatUpdate):
-    db_phieuxuat = db.query(PhieuXuat).filter(PhieuXuat.id == phieuxuat_id).first()
-    if db_phieuxuat is None:
-        return None
-    for key, value in phieuxuat.dict(exclude_unset=True).items():
-        setattr(db_phieuxuat, key, value)
-    db.commit()
-    db.refresh(db_phieuxuat)
+    db_phieuxuat = db.query(PhieuXuatHangHoa).filter(PhieuXuatHangHoa.idPx == phieuxuat_id, PhieuXuatHangHoa.idHanghoa == phieuxuat.idHanghoa).first()
+    if db_phieuxuat:
+        db_phieuxuat.soluong = phieuxuat.soluong
+        db_phieuxuat.dongia = phieuxuat.dongia
+        db.commit()
+        db.refresh(db_phieuxuat)
+        # update lại tongsl và tongtien của phiếu xuất
+        db_px = db.query(PhieuXuat).filter(PhieuXuat.id == phieuxuat_id).first()
+        db_px.tongsl = sum(item.soluong for item in db.query(PhieuXuatHangHoa).filter(PhieuXuatHangHoa.idPx == phieuxuat_id).all())
+        db_px.tongtien = sum(item.soluong * item.dongia for item in db.query(PhieuXuatHangHoa).filter(PhieuXuatHangHoa.idPx == phieuxuat_id).all())
+        db.commit()
+        db.refresh(db_px)
     return db_phieuxuat
 
 def delete_phieuxuat(db: Session, phieuxuat_id: int):
